@@ -1,3 +1,4 @@
+import { assetUrl } from '../lib/assetUrl'
 import { Link } from 'react-router-dom'
 import { HOME_EMBLEM_ID } from '../components/Header'
 import { Logo } from '../components/Logo'
@@ -54,7 +55,7 @@ function Hero() {
     <section className="hero" aria-labelledby="hero-title">
       <img
         className="hero__img"
-        src="/img/hero.webp"
+        src={assetUrl('/img/hero.webp')}
         alt="Kute zwoje balustrady z bliska"
         width={2000}
         height={1330}

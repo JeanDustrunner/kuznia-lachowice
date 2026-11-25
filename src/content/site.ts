@@ -1,4 +1,5 @@
 import galleryData from './gallery.json'
+import { assetUrl } from '../lib/assetUrl'
 import type { Category, CategoryGroup, Contact, Offer, Photo } from './types'
 
 export const SITE = {
@@ -135,7 +136,12 @@ export const OFFER: Offer = {
   ],
 }
 
-const GALLERY: Readonly<Record<string, readonly Photo[]>> = galleryData
+const GALLERY: Readonly<Record<string, readonly Photo[]>> = Object.fromEntries(
+  Object.entries(galleryData).map(([slug, photos]) => [
+    slug,
+    photos.map((photo) => ({ ...photo, src: assetUrl(photo.src), thumb: assetUrl(photo.thumb) })),
+  ]),
+)
 
 /** Photo shown beside the intro text: gallery slug and 1-based position, like Category.cover. */
 export const ABOUT_PORTRAIT = { slug: 'z-zycia-kuzni', position: 14 } as const

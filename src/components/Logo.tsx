@@ -1,3 +1,4 @@
+import { assetUrl } from '../lib/assetUrl'
 interface LogoProps {
   readonly className?: string
   readonly id?: string
@@ -13,5 +14,5 @@ const LOGO_HEIGHT = 427
  * The name is set as real text next to it.
  */
 export function Logo({ className = 'logo', id }: LogoProps) {
-  return <img id={id} className={className} src="/img/logo.png" alt="" width={LOGO_WIDTH} height={LOGO_HEIGHT} />
+  return <img id={id} className={className} src={assetUrl('/img/logo.png')} alt="" width={LOGO_WIDTH} height={LOGO_HEIGHT} />
 }
