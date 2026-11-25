@@ -1,0 +1,543 @@
+/* Home, category header, offer, contact and not-found. */
+
+/* ---------- hero: the anvil and the name on a darkened photo ---------- */
+.hero {
+  position: relative;
+  isolation: isolate;
+  display: grid;
+  place-items: center;
+  min-height: clamp(30rem, 78svh, 46rem);
+  overflow: hidden;
+  background: var(--raised);
+}
+
+.hero__img {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Dark in the middle so the wax text reads; fades into the page at the bottom. */
+.hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(ellipse at 50% 46%, rgb(20 17 14 / 0.84) 0, rgb(20 17 14 / 0.64) 45%, rgb(20 17 14 / 0.38) 100%),
+    linear-gradient(180deg, transparent 72%, var(--bg) 100%);
+}
+
+.hero__content {
+  display: grid;
+  justify-items: center;
+  gap: 0.9rem;
+  padding-block: 3rem;
+  text-align: center;
+}
+
+.hero h1 {
+  margin-top: 0.35rem;
+  font-size: clamp(2.4rem, 5.2vw, 4.25rem);
+  line-height: 1;
+}
+
+.hero__tagline {
+  color: var(--wax-dim);
+  font-size: 1.35rem;
+  font-style: italic;
+}
+
+.hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.75rem;
+  margin-top: 0.5rem;
+}
+
+.hero .btn--ghost {
+  background: rgb(26 23 20 / 0.55);
+}
+
+/* ---------- about ---------- */
+.about {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  gap: clamp(1.5rem, 5vw, 4rem);
+  align-items: center;
+  padding-block: 4rem 3rem;
+}
+
+.about__figure {
+  margin: 0;
+}
+
+.about__figure img {
+  width: 100%;
+  max-height: 38rem;
+  object-fit: cover;
+}
+
+.about__text {
+  display: grid;
+  gap: 1.1rem;
+  max-width: var(--measure);
+}
+
+.about__text p {
+  color: var(--wax-dim);
+}
+
+/* ---------- gallery: one screen-wide photo per category, name in the corner ---------- */
+.features {
+  padding-top: 2rem;
+}
+
+.features__group-title {
+  padding-top: 2.5rem;
+  padding-bottom: 0.9rem;
+  color: var(--bronze);
+}
+
+.features__list {
+  display: grid;
+  gap: 4px;
+}
+
+.feature {
+  position: relative;
+  isolation: isolate;
+  display: block;
+  height: clamp(15rem, 32vw, 26rem);
+  overflow: hidden;
+  background: var(--raised);
+  text-decoration: none;
+}
+
+.feature__img {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: saturate(0.92);
+  transition: transform 0.4s ease-out, filter 0.2s;
+}
+
+.feature::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(20deg, rgb(20 17 14 / 0.9) 0, rgb(20 17 14 / 0.55) 35%, transparent 65%);
+}
+
+.feature:hover .feature__img {
+  transform: scale(1.02);
+  filter: saturate(1) brightness(1.06);
+}
+
+.feature:focus-visible {
+  outline-offset: -4px;
+}
+
+.feature__caption {
+  position: absolute;
+  inset: auto 0 0;
+  padding-bottom: clamp(1rem, 3vw, 2rem);
+}
+
+.feature__inner {
+  display: grid;
+  justify-items: start;
+  gap: 0.3rem;
+}
+
+.feature__title {
+  font: 700 clamp(1.6rem, 3.4vw, 2.6rem) / 1.05 var(--font-display);
+  color: var(--wax);
+}
+
+.feature__blurb {
+  max-width: 30rem;
+  color: var(--wax-dim);
+  font-size: 1rem;
+  line-height: 1.4;
+}
+
+.feature__count {
+  color: var(--bronze);
+  font-style: italic;
+}
+
+/* Wide screens: the same links become a grid of small cards (photo, title, blurb), not banners. */
+@media (min-width: 721px) {
+  .features__list {
+    grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
+    gap: 2rem 1.5rem;
+    max-width: 74rem;
+    margin-inline: auto;
+    padding-inline: max(var(--gutter), env(safe-area-inset-left, 0px));
+  }
+
+  .feature {
+    isolation: auto;
+    display: grid;
+    gap: 0.35rem;
+    align-content: start;
+    height: auto;
+    overflow: visible;
+    background: none;
+  }
+
+  .feature__img {
+    position: static;
+    z-index: auto;
+    height: auto;
+    aspect-ratio: 4 / 3;
+    background: var(--raised);
+    margin-bottom: 0.4rem;
+  }
+
+  .feature:hover .feature__img {
+    transform: none;
+  }
+
+  .feature::after {
+    display: none;
+  }
+
+  .feature__caption {
+    position: static;
+    padding: 0;
+  }
+
+  .feature .feature__inner {
+    gap: 0.35rem;
+    padding-inline: 0;
+  }
+
+  .feature__title {
+    font: italic 400 1.3rem/1.2 var(--font-text);
+    border-bottom: 1px solid transparent;
+  }
+
+  .feature:hover .feature__title {
+    border-bottom-color: var(--bronze);
+  }
+
+  .feature__blurb {
+    color: var(--ash);
+    line-height: 1.45;
+  }
+}
+
+@media (min-width: 1000px) {
+  .features__list {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 2rem 1.25rem;
+  }
+}
+
+/* ---------- call to action ---------- */
+.cta {
+  margin-top: 4rem;
+  background: var(--raised);
+  border-block: 1px solid var(--line);
+}
+
+.cta__inner {
+  display: grid;
+  justify-items: start;
+  gap: 1rem;
+  padding-block: 4rem;
+}
+
+.cta__inner p {
+  max-width: var(--measure);
+  color: var(--wax-dim);
+}
+
+/* ---------- inner page header (category, offer, contact, 404) ---------- */
+.page-head {
+  display: grid;
+  gap: 1rem;
+  justify-items: start;
+  padding-block: 3.5rem 2rem;
+}
+
+.page-head h1 {
+  font-size: clamp(2.5rem, 7vw, 4.5rem);
+}
+
+.page-head__back a {
+  color: var(--ash);
+  text-decoration: none;
+  border-bottom: 1px solid var(--line);
+}
+
+.page-head__back a:hover {
+  color: var(--wax);
+  border-bottom-color: var(--bronze);
+}
+
+.page-head__lede {
+  max-width: var(--measure);
+  color: var(--wax-dim);
+  font-size: 1.25rem;
+}
+
+.page-head__count {
+  color: var(--bronze);
+  font-style: italic;
+}
+
+/* ---------- gallery switcher chips (phones only) ---------- */
+.chips {
+  display: none;
+}
+
+.chips__list {
+  position: relative; /* offsetParent for scrolling the current chip into view */
+  display: flex;
+  gap: 0.5rem;
+  overflow-x: auto;
+  padding: 0.6rem var(--gutter);
+  scrollbar-width: none;
+  mask-image: linear-gradient(90deg, transparent, #000 4%, #000 88%, transparent);
+}
+
+.chips__list::-webkit-scrollbar {
+  display: none;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.5rem;
+  padding: 0 0.9rem;
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  color: var(--wax-dim);
+  font-size: 0.95rem;
+  white-space: nowrap;
+  text-decoration: none;
+}
+
+.chip[aria-current='page'] {
+  background: var(--bronze);
+  border-color: var(--bronze);
+  color: var(--bg);
+  font-weight: 700;
+}
+
+/* ---------- floating call button (phones, gallery pages) ---------- */
+.call-fab {
+  position: fixed;
+  right: max(1rem, env(safe-area-inset-right, 0px));
+  bottom: max(1rem, env(safe-area-inset-bottom, 0px));
+  z-index: 15; /* under the header (20), so the open menu and the zoomed photo cover it */
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 3rem;
+  padding: 0 1.1rem;
+  border-radius: 2px;
+  background: var(--bronze);
+  color: var(--bg);
+  font-weight: 700;
+  text-decoration: none;
+  box-shadow: 0 6px 18px rgb(0 0 0 / 0.5);
+}
+
+/* ---------- offer ---------- */
+.offer {
+  display: grid;
+  gap: 3.5rem;
+}
+
+.offer__group {
+  display: grid;
+  gap: 1rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--line);
+}
+
+.offer__intro {
+  max-width: var(--measure);
+  color: var(--wax-dim);
+}
+
+.offer__list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 30rem), 1fr));
+  gap: 1.75rem 2.5rem;
+  margin-top: 0.75rem;
+}
+
+.offer__item {
+  display: grid;
+  grid-template-columns: 8.5rem minmax(0, 1fr);
+  gap: 1.25rem;
+  align-items: start;
+}
+
+.offer__item--plain {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.offer__img {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+}
+
+.offer__text {
+  display: grid;
+  gap: 0.35rem;
+  justify-items: start;
+}
+
+.offer__text h3 {
+  font-size: 1.5rem;
+}
+
+.offer__text p {
+  color: var(--wax-dim);
+  font-size: 1.05rem;
+}
+
+.offer__how {
+  display: grid;
+  gap: 1rem;
+  justify-items: start;
+  padding: 2rem;
+  background: var(--raised);
+  border: 1px solid var(--line);
+}
+
+.offer__how ol {
+  display: grid;
+  gap: 0.5rem;
+  max-width: var(--measure);
+  margin: 0;
+  padding-left: 1.4rem;
+  color: var(--wax-dim);
+}
+
+.offer__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 0.5rem;
+}
+
+/* ---------- contact ---------- */
+.contact-list {
+  display: grid;
+  gap: 1.5rem;
+  width: 100%;
+  max-width: var(--measure);
+  margin: 1.5rem 0 0;
+}
+
+.contact-list > div {
+  display: grid;
+  grid-template-columns: 9rem minmax(0, 1fr);
+  gap: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--line);
+}
+
+.contact-list dt {
+  color: var(--bronze);
+  font-style: italic;
+}
+
+.contact-list dd {
+  margin: 0;
+  font-size: 1.35rem;
+  overflow-wrap: anywhere;
+}
+
+.contact-list a {
+  text-decoration-color: var(--bronze);
+  text-underline-offset: 0.25em;
+}
+
+/* ---------- small screens ---------- */
+@media (max-width: 720px) {
+  .hero {
+    /* About 80% of the screen, so the next section peeks in. */
+    min-height: calc(80svh - 3.5rem);
+  }
+
+  .hero__content {
+    gap: 0.7rem;
+  }
+
+  .hero__tagline {
+    font-size: 1.1rem;
+  }
+
+  .about {
+    grid-template-columns: 1fr;
+    padding-block: 2.5rem 1.5rem;
+  }
+
+  .features__group-title {
+    padding-top: 2rem;
+  }
+
+  .feature {
+    height: 14rem;
+  }
+
+  .feature__blurb {
+    font-size: 0.95rem;
+  }
+
+  .chips {
+    display: block;
+    border-bottom: 1px solid var(--line);
+  }
+
+  /* Room below the footer links, so at the end of a gallery page the floating call button covers nothing. */
+  body:has(.call-fab) .site-footer {
+    padding-bottom: 5.5rem;
+  }
+
+  .page-head {
+    gap: 0.6rem;
+    padding-block: 1.5rem 1.25rem;
+  }
+
+  .page-head__lede {
+    font-size: 1.1rem;
+  }
+
+  .offer__item {
+    grid-template-columns: 6rem minmax(0, 1fr);
+    gap: 1rem;
+  }
+
+  .offer__how {
+    padding: 1.5rem 1.25rem;
+  }
+
+  .contact-list > div {
+    grid-template-columns: 1fr;
+    gap: 0.25rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .feature__img {
+    transition: none;
+  }
+}

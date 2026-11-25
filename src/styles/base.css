@@ -1,0 +1,237 @@
+/* Patina: black patina ground, wax-coloured text, rubbed-bronze accent. */
+
+@font-face {
+  font-family: 'Antykwa Torunska';
+  src: url('/fonts/AntykwaTorunska-Regular.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Antykwa Torunska';
+  src: url('/fonts/AntykwaTorunska-Italic.otf') format('opentype');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Antykwa Torunska';
+  src: url('/fonts/AntykwaTorunska-Bold.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Antykwa Torunska Cond';
+  src: url('/fonts/AntykwaTorunskaCond-Bold.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  --bg: #1a1714;
+  --raised: #24201c;
+  --wax: #e7dfd2;
+  --wax-dim: #cfc6b8;
+  --bronze: #b8955f;
+  --ash: #958c80;
+  --line: #3a342d;
+  --focus: #e3c58e;
+
+  --font-text: 'Antykwa Torunska', Georgia, 'Times New Roman', serif;
+  --font-display: 'Antykwa Torunska Cond', 'Antykwa Torunska', Georgia, serif;
+
+  --gutter: clamp(1rem, 4vw, 2rem);
+  --measure: 38rem;
+  color-scheme: dark;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scrollbar-gutter: stable;
+  -webkit-text-size-adjust: 100%;
+  scroll-padding-top: 6rem; /* room for the sticky header when jumping to #prace */
+}
+
+@media (max-width: 720px) {
+  html {
+    scroll-padding-top: 4.5rem; /* the slim 56 px phone bar plus a little air */
+  }
+
+  .only-wide {
+    display: none !important;
+  }
+}
+
+@media (min-width: 721px) {
+  .only-narrow {
+    display: none !important;
+  }
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--wax);
+  font: 400 1.125rem/1.6 var(--font-text);
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+a {
+  color: inherit;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 700;
+  line-height: 1.05;
+  text-wrap: balance;
+}
+
+h1 {
+  font-size: clamp(3rem, 8.5vw, 6rem);
+  letter-spacing: -0.01em;
+}
+
+h2 {
+  font-size: clamp(2rem, 4.5vw, 3rem);
+}
+
+h3 {
+  font-size: 1.75rem;
+}
+
+p {
+  margin: 0;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+main:focus {
+  outline: none;
+}
+
+:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 3px;
+}
+
+.container {
+  width: 100%;
+  max-width: 74rem;
+  margin-inline: auto;
+  padding-left: max(var(--gutter), env(safe-area-inset-left, 0px));
+  padding-right: max(var(--gutter), env(safe-area-inset-right, 0px));
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.skip-link {
+  position: absolute;
+  left: 1rem;
+  top: -4rem;
+  z-index: 100;
+  padding: 0.6rem 1rem;
+  background: var(--bronze);
+  color: var(--bg);
+  font-weight: 700;
+}
+
+.skip-link:focus {
+  top: 1rem;
+}
+
+.text-link {
+  color: var(--wax);
+  text-decoration-color: var(--bronze);
+  text-underline-offset: 0.25em;
+}
+
+/* A link standing on its own line gets a full-size tap area. */
+p > .text-link:only-child,
+.offer__text .text-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.75rem;
+}
+
+.text-link:hover {
+  color: var(--bronze);
+}
+
+.btn--wide {
+  width: 100%;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 3rem;
+  padding: 0.85rem 1.4rem;
+  border: 1px solid var(--bronze);
+  border-radius: 2px;
+  font: 700 1.05rem/1.2 var(--font-text);
+  text-decoration: none;
+  transition: background-color 0.15s, color 0.15s;
+}
+
+.btn--primary {
+  background: var(--bronze);
+  color: var(--bg);
+}
+
+.btn--primary:hover {
+  background: var(--wax);
+  border-color: var(--wax);
+}
+
+.btn--ghost {
+  background: transparent;
+  color: var(--wax);
+}
+
+.btn--ghost:hover {
+  background: var(--raised);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+}

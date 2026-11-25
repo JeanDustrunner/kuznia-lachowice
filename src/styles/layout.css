@@ -1,0 +1,365 @@
+/* Header, navigation (Galeria panel, phone drawer) and footer. */
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 20; /* above the page, below the zoomed-photo overlay (50) */
+  border-bottom: 1px solid var(--line);
+  background: var(--bg);
+  padding-top: env(safe-area-inset-top, 0px);
+}
+
+.site-header__inner {
+  position: relative; /* anchors the Galeria panel */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem 2rem;
+  min-height: 4.5rem;
+  padding-block: 0.5rem;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  min-width: 0;
+  min-height: 2.75rem;
+  color: var(--bronze);
+  text-decoration: none;
+}
+
+.brand__name {
+  display: flex;
+  flex-direction: column;
+  color: var(--wax);
+  font-weight: 700;
+  font-size: 1.15rem;
+  line-height: 1.15;
+}
+
+.brand__place {
+  color: var(--ash);
+  font-style: italic;
+  font-weight: 400;
+  font-size: 0.95rem;
+}
+
+.site-nav {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem 1.75rem;
+}
+
+.site-nav a,
+.gallery-menu__toggle {
+  padding-block: 0.7rem;
+  color: var(--wax-dim);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+}
+
+.site-nav a:hover,
+.gallery-menu__toggle:hover,
+.gallery-menu__toggle[aria-expanded='true'] {
+  color: var(--wax);
+  border-bottom-color: var(--bronze);
+}
+
+/* ---------- Galeria panel (wide screens) ---------- */
+.gallery-menu__toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  border-top: 0;
+  border-inline: 0;
+  background: none;
+  font: inherit;
+  cursor: pointer;
+}
+
+.gallery-menu__toggle[aria-expanded='true'] svg {
+  transform: rotate(180deg);
+}
+
+.gallery-menu__panel {
+  position: absolute;
+  top: calc(100% + 1px);
+  right: var(--gutter);
+  width: min(44rem, calc(100vw - 2 * var(--gutter)));
+  display: grid;
+  gap: 1rem;
+  padding: 1.25rem 1.5rem 1.5rem;
+  background: var(--raised);
+  border: 1px solid var(--line);
+  box-shadow: 0 14px 32px rgb(0 0 0 / 0.5);
+}
+
+.gallery-menu__panel[hidden] {
+  display: none;
+}
+
+.site-nav .gallery-menu__all {
+  justify-self: start;
+  padding-block: 0.4rem;
+  color: var(--wax);
+  font-style: italic;
+}
+
+/* ---------- grouped gallery links (panel and drawer) ---------- */
+.cat-links__title {
+  margin-bottom: 0.3rem;
+  color: var(--bronze);
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+
+.cat-links--columns {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr 1fr;
+  gap: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--line);
+}
+
+.site-nav .cat-links a {
+  display: block;
+  padding-block: 0.35rem;
+  font-size: 1rem;
+  line-height: 1.3;
+}
+
+/* ---------- menu icon and drawer (phones) ---------- */
+.icon-button {
+  display: grid;
+  place-items: center;
+  width: 3rem;
+  height: 3rem;
+  padding: 0;
+  border: 0;
+  border-radius: 2px;
+  background: none;
+  color: var(--wax);
+  cursor: pointer;
+}
+
+.icon-button:hover {
+  color: var(--bronze);
+}
+
+.menu-button {
+  display: none;
+  flex: none;
+  margin-right: -0.6rem; /* align the icon's lines, not its tap area, with the page edge */
+}
+
+.drawer {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+}
+
+.drawer__scrim {
+  position: absolute;
+  inset: 0;
+  background: rgb(0 0 0 / 0.6);
+  animation: drawer-fade 0.2s ease-out;
+}
+
+.drawer__panel {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: min(86vw, 24rem);
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: env(safe-area-inset-top, 0px) env(safe-area-inset-right, 0px) max(1.25rem, env(safe-area-inset-bottom, 0px)) 0;
+  background: var(--raised);
+  border-left: 1px solid var(--line);
+  box-shadow: -10px 0 30px rgb(0 0 0 / 0.5);
+  animation: drawer-slide 0.2s ease-out;
+}
+
+.drawer__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 3.5rem;
+  padding-left: 1.25rem;
+  padding-right: 0.4rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.drawer__label {
+  color: var(--ash);
+  font-style: italic;
+}
+
+.drawer__nav {
+  display: grid;
+  padding: 0.5rem 1.25rem 1rem;
+}
+
+.drawer__heading {
+  padding-top: 0.75rem;
+  font: 700 1.6rem/1.1 var(--font-display);
+}
+
+.drawer__nav a {
+  display: flex;
+  align-items: center;
+  min-height: 2.75rem;
+  color: var(--wax);
+  text-decoration: none;
+  border-bottom: 1px solid var(--line);
+}
+
+.drawer__nav .drawer__all {
+  font-style: italic;
+  color: var(--wax-dim);
+}
+
+.cat-links--stacked .cat-links__group {
+  padding-top: 0.9rem;
+}
+
+.cat-links--stacked .cat-links__title {
+  margin-bottom: 0;
+}
+
+.drawer__nav .drawer__page {
+  margin-top: 0.5rem;
+  font: 700 1.35rem/1.1 var(--font-display);
+}
+
+.drawer__contact {
+  display: grid;
+  gap: 0.6rem;
+  padding: 0.75rem 1.25rem 0;
+}
+
+@keyframes drawer-slide {
+  from {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes drawer-fade {
+  from {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .drawer__panel,
+  .drawer__scrim {
+    animation: none;
+  }
+}
+
+/* ---------- footer ---------- */
+.site-footer {
+  margin-top: 5rem;
+  border-top: 1px solid var(--line);
+  background: var(--raised);
+  padding-block: 3rem;
+  padding-bottom: max(3rem, env(safe-area-inset-bottom, 0px));
+}
+
+.site-footer__inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+  gap: 2.5rem;
+}
+
+.site-footer__about {
+  display: grid;
+  gap: 0.5rem;
+  color: var(--bronze);
+  align-content: start;
+}
+
+/* The anvil mark from the workshop's logo; the name beside it is real text. */
+.logo {
+  display: block;
+  flex: none;
+  height: auto;
+}
+
+.logo--header {
+  width: 64px;
+}
+
+.logo--emblem {
+  width: min(17rem, 52vw);
+}
+
+.logo--footer {
+  width: 150px;
+}
+
+.site-footer__name {
+  color: var(--wax);
+  font-weight: 700;
+}
+
+.site-footer__tagline {
+  color: var(--ash);
+  font-style: italic;
+}
+
+.site-footer__nav {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr));
+  gap: 0.5rem 2rem;
+  align-content: start;
+}
+
+.site-footer__nav a {
+  display: flex;
+  align-items: center;
+  min-height: 2.75rem;
+  color: var(--wax-dim);
+  text-decoration: none;
+}
+
+.site-footer__nav a:hover {
+  color: var(--wax);
+  text-decoration: underline;
+  text-decoration-color: var(--bronze);
+}
+
+@media (max-width: 720px) {
+  /* Phones: one slim 56 px row, the menu lives in the drawer. */
+  .site-header__inner {
+    min-height: 3.5rem;
+    padding-block: 0.25rem;
+  }
+
+  .site-nav {
+    display: none;
+  }
+
+  .menu-button {
+    display: grid;
+  }
+
+  .logo--header {
+    width: 44px;
+  }
+
+  .brand__name {
+    font-size: 1rem;
+  }
+
+  .brand__place {
+    font-size: 0.85rem;
+  }
+
+  .site-footer__inner {
+    grid-template-columns: 1fr;
+  }
+}
